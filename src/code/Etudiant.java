@@ -95,16 +95,16 @@ public class Etudiant {
         double sommeCoeff = 0;
         double sommeMoyenne = 0;
         String matiere;
-        double moyenne = 0, coefficient;
+        double moyenne = 0, coefficient = 0;
         while (it.hasNext()) {
             matiere = it.next();
             try {
                 moyenne = this.calculerMoyenne(matiere);
+                coefficient = this.formation.getCoefficient(matiere);
             } catch (MatiereInexistanteException e) {
-                // Cas techniquement impossible, car les matières de la formation doivent être les mêmes que dans les matières de l'étudiant, au mêmes nombres
+                // Cas techniquement impossible, car les matières de la formation doivent être les mêmes que celle de l'étudiant, au mêmes nombres
                 e.printStackTrace();
             }
-            coefficient = this.formation.getCoefficient(matiere);
             sommeCoeff += coefficient;
             sommeMoyenne += (moyenne * coefficient);
         }
