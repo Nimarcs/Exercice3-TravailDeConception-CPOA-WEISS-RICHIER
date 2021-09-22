@@ -2,7 +2,7 @@ package code;
 
 import exceptions.MatiereExisteDejaException;
 import exceptions.MatiereInexistanteException;
-import exceptions.ValeurNegativeImpossibleException;
+import exceptions.ValeurImpossibleException;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -40,12 +40,12 @@ public class Formation {
      * @param coeff coefficient de la matiere, ne doit pas etre negatif
      * @throws MatiereExisteDejaException renvoye si la matiere existe deja pour la formation
      */
-    public void ajouterMatiere(String matiere, Double coeff) throws MatiereExisteDejaException, ValeurNegativeImpossibleException {
+    public void ajouterMatiere(String matiere, Double coeff) throws MatiereExisteDejaException, ValeurImpossibleException {
         if (coefficients.containsKey(matiere)){
             throw new MatiereExisteDejaException(matiere);
         } else {
             if (coeff < 0)
-                throw new ValeurNegativeImpossibleException(coeff);
+                throw new ValeurImpossibleException(coeff);
             coefficients.put(matiere,coeff);
         }
     }
@@ -62,12 +62,12 @@ public class Formation {
      * methode qui permet de modifier le coefficient d'une matiere
      * @param matiere matiere dont on veut changer le coefficient, doit deja exister
      * @param coeff coefficient a attribuer a la matiere, doit etre positif
-     * @throws ValeurNegativeImpossibleException renvoye si le coefficient est negatif
+     * @throws ValeurImpossibleException renvoye si le coefficient est negatif
      * @throws MatiereInexistanteException renvoye si la matiere n'existe pas
      */
-    public void changerCoefficient(String matiere, Double coeff) throws ValeurNegativeImpossibleException, MatiereInexistanteException {
+    public void changerCoefficient(String matiere, Double coeff) throws ValeurImpossibleException, MatiereInexistanteException {
         if (coeff < 0)
-            throw new ValeurNegativeImpossibleException(coeff);
+            throw new ValeurImpossibleException(coeff);
         if (!coefficients.containsKey(matiere)){
             throw new MatiereInexistanteException(matiere);
         }

@@ -3,7 +3,7 @@ package code;
 
 // IMPORTS
 
-import exceptions.MatiereInexistanteException;
+import exceptions.*;
 
 import java.util.*;
 
@@ -58,10 +58,13 @@ public class Etudiant {
      * @param note    : Double, valeur de la note a ajoutee
      * @throws MatiereInexistanteException : Exception levee ssi le nom donnee pour la matiere ne retourne aucune liste de notes
      */
-    public void ajouterNote(String matiere, Double note) throws MatiereInexistanteException {
+    public void ajouterNote(String matiere, Double note) throws MatiereInexistanteException, ValeurImpossibleException {
         List<Double> listeNotes = this.resultats.get(matiere);
         if (listeNotes == null) {
             throw new MatiereInexistanteException(matiere);
+        }
+        if (note<0 || note>20) {
+            throw new ValeurImpossibleException(note);
         }
         listeNotes.add(note);
     }
