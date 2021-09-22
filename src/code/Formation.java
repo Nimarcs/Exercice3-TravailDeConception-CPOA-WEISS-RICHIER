@@ -29,6 +29,7 @@ public class Formation {
      */
     public Formation(String id){
         idFormation = id;
+        coefficients = new HashMap<>();
     }
 
     //methodes
