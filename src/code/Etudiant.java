@@ -53,8 +53,9 @@ public class Etudiant {
 
     /**
      * Methode ajouterNote qui ajoute une note donnee pour une matiere donnee
+     *
      * @param matiere : String, nom de la matiere ou on doit ajouter une note
-     * @param note : Double, valeur de la note a ajoutee
+     * @param note    : Double, valeur de la note a ajoutee
      * @throws MatiereInexistanteException : Exception levee ssi le nom donnee pour la matiere ne retourne aucune liste de notes
      */
     public void ajouterNote(String matiere, Double note) throws MatiereInexistanteException {
@@ -67,6 +68,7 @@ public class Etudiant {
 
     /**
      * Methode calculerMoyenne qui calcule la moyenne de l'etudiant pour un nom de matiere donne
+     *
      * @param matiere : String, nom de la matiere dont on veut faire la moyenne
      * @return Double: moyenne de l'etudiant pour la matiere donnee
      * @throws MatiereInexistanteException : Exception levee ssi le nom donnee pour la matiere ne retourne aucune liste de notes
@@ -83,8 +85,30 @@ public class Etudiant {
         return (somme / listeNotes.size());
     }
 
+    /**
+     * Methode calculerMoyenneGenerale qui calcule la moyenne générale de l'etudiant avec toutes les matieres et leurs coefficients associés
+     * @return Double: moyenne générale de l'étudiant
+     */
     public double calculerMoyenneGenerale() {
-        return 0;
+        Set<String> domaineMatieres = this.formation.domaineMatieres();
+        Iterator<String> it = domaineMatieres.iterator();
+        double sommeCoeff = 0;
+        double sommeMoyenne = 0;
+        String matiere;
+        double moyenne = 0, coefficient;
+        while (it.hasNext()) {
+            matiere = it.next();
+            try {
+                moyenne = this.calculerMoyenne(matiere);
+            } catch (MatiereInexistanteException e) {
+                // Cas techniquement impossible, car les matières de la formation doivent être les mêmes que dans les matières de l'étudiant, au mêmes nombres
+                e.printStackTrace();
+            }
+            coefficient = this.formation.getCoefficient(matiere);
+            sommeCoeff += coefficient;
+            sommeMoyenne += (moyenne * coefficient);
+        }
+        return (sommeMoyenne / sommeCoeff);
     }
 
     // GETTERS
