@@ -3,9 +3,7 @@ package tests;
 
 // IMPORTS
 import code.Formation;
-import exceptions.MatiereExisteDejaException;
-import exceptions.MatiereInexistanteException;
-import exceptions.ValeurNegativeImpossibleException;
+import exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +27,7 @@ public class FormationTest {
     }
 
     @Test
-    public void ajouterMatiere_CasOK() throws MatiereExisteDejaException, ValeurNegativeImpossibleException, MatiereInexistanteException {
+    public void ajouterMatiere_CasOK() throws MatiereExisteDejaException, ValeurImpossibleException, MatiereInexistanteException {
         Set<String> listeMatieres = this.form1.domaineMatieres();
         assertEquals( "Test OK1: form1 ne doit avoir aucune matiere", listeMatieres.size(), 0);
         this.form1.ajouterMatiere("CPOA", 5.0);
