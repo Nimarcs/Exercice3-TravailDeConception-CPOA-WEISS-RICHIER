@@ -2,6 +2,9 @@
 package code;
 
 // IMPORTS
+
+import exceptions.MatiereInexistanteException;
+
 import java.util.*;
 
 /**
@@ -28,7 +31,8 @@ public class Etudiant {
 
     /**
      * Constructeur Etudiant avec 2 parametres
-     * @param id : Identite, identite de l'etudiant
+     *
+     * @param id   : Identite, identite de l'etudiant
      * @param form : Formation, departement d'etude de l'etudiant
      */
     public Etudiant(Identite id, Formation form) {
@@ -47,20 +51,46 @@ public class Etudiant {
 
     // METHODES
 
+    /**
+     * Methode ajouterNote qui ajoute une note donnee pour une matiere donnee
+     * @param matiere : String, nom de la matiere ou on doit ajouter une note
+     * @param note : Double, valeur de la note a ajoutee
+     * @throws MatiereInexistanteException : Exception levee ssi le nom donnee pour la matiere ne retourne aucune liste de notes
+     */
+    public void ajouterNote(String matiere, Double note) throws MatiereInexistanteException {
+        List<Double> listeNotes = this.resultats.get(matiere);
+        if (listeNotes == null) {
+            throw new MatiereInexistanteException(matiere);
+        }
+        listeNotes.add(note);
+    }
 
+    /**
+     * Methode calculerMoyenne qui calcule la moyenne de l'etudiant pour un nom de matiere donne
+     * @param matiere : String, nom de la matiere dont on veut faire la moyenne
+     * @return Double: moyenne de l'etudiant pour la matiere donnee
+     * @throws MatiereInexistanteException : Exception levee ssi le nom donnee pour la matiere ne retourne aucune liste de notes
+     */
+    public double calculerMoyenne(String matiere) throws MatiereInexistanteException {
+        List<Double> listeNotes = this.resultats.get(matiere);
+        if (listeNotes == null) {
+            throw new MatiereInexistanteException(matiere);
+        }
+        double somme = 0;
+        for (int i = 0; i < listeNotes.size(); i++) {
+            somme += listeNotes.get(i);
+        }
+        return (somme / listeNotes.size());
+    }
 
+    public double calculerMoyenneGenerale() {
+        return 0;
+    }
 
     // GETTERS
-
-    public Formation getFormation() {
-        return formation;
-    }
 
     public Identite getIdentite() {
         return identite;
     }
 
-    public HashMap<String, List<Double>> getResultats() {
-        return resultats;
-    }
 }
