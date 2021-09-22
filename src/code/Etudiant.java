@@ -117,4 +117,21 @@ public class Etudiant {
         return identite;
     }
 
+    public Formation getFormation() {
+        return formation;
+    }
+
+    /**
+     * Getter qui retourne la liste des notes selon une matiere donnee
+     * @param matiere : String, matiere donnee
+     * @return List<Double>, liste des notes pour la matiere donnee
+     * @throws MatiereInexistanteException : Exception levee ssi le nom donnee pour la matiere ne retourne aucune liste de notes
+     */
+    public List<Double> getResultat(String matiere) throws MatiereInexistanteException {
+        List<Double> list = this.resultats.get(matiere);
+        if (list==null) {
+            throw new MatiereInexistanteException(matiere);
+        }
+        return list;
+    }
 }
