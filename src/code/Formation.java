@@ -1,6 +1,7 @@
 package code;
 
 import exceptions.MatiereExisteDejaException;
+import exceptions.ValeurNegativeImpossibleException;
 
 import java.util.HashMap;
 
@@ -40,12 +41,9 @@ public class Formation {
         if (coefficients.containsKey(matiere)){
             throw new MatiereExisteDejaException(matiere);
         } else {
-            double coefficient;
             if (coeff < 0)
-                coefficient = 1.0;
-            else
-                coefficient = coeff;
-            coefficients.put(matiere,coefficient);
+                throw  new ValeurNegativeImpossibleException(coeff)
+            coefficients.put(matiere,coeff);
         }
     }
 
