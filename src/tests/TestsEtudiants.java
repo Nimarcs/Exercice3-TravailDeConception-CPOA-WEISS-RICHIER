@@ -6,6 +6,8 @@ import code.Etudiant;
 import code.Formation;
 import code.Identite;
 import exceptions.MatiereInexistanteException;
+import exceptions.ValeurImpossibleException;
+
 import org.junit.Test;
 import org.junit.Before;
 
@@ -26,9 +28,10 @@ public class TestsEtudiants {
     /**
      * methode qui teste le cas normal d'un ajout de note
      * @throws MatiereInexistanteException renvoye si la matiere n'existe pas
+     * @throws ValeurImpossibleException renvoie si la valeur est impossible
      */
     @Test
-    public void ajouterNote_casNormal() throws MatiereInexistanteException {
+    public void ajouterNote_casNormal() throws MatiereInexistanteException, ValeurImpossibleException {
         //preparation
         //methode a tester
         etu1.ajouterNote("cueille", 10.0);
@@ -52,9 +55,10 @@ public class TestsEtudiants {
     /**
      * le test verifie que la methode renvoie bien une exception si la matiere n'existe pas
      * @throws MatiereInexistanteException exception attendue
+     * @throws ValeurImpossibleException
      */
     @Test (expected = MatiereInexistanteException.class)
-    public void ajouterNote_casMatiereInexistante() throws MatiereInexistanteException {
+    public void ajouterNote_casMatiereInexistante() throws MatiereInexistanteException, ValeurImpossibleException {
         //preparation
         //methode a tester
         etu1.ajouterNote("informatique", 20.0);

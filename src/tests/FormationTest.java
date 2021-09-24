@@ -40,9 +40,10 @@ public class FormationTest {
         assertEquals("Test OK4: La coefficient de la seule matiere de form1 est de 5.0", 5.0, coeff, 5.0);
     }
 
-    @Test
-    public void ajouterMatiere_CasNull() {
-
+    @Test (expected = MatiereExisteDejaException.class)
+    public void ajouterMatiere_CasMatiereInexistante() throws MatiereExisteDejaException, ValeurImpossibleException {
+        this.form1.ajouterMatiere("CPOA", 4.0);
+        this.form1.ajouterMatiere("CPOA", 4.0);
     }
 
     @Test

@@ -57,6 +57,7 @@ public class Etudiant {
      * @param matiere : String, nom de la matiere ou on doit ajouter une note
      * @param note    : Double, valeur de la note a ajoutee
      * @throws MatiereInexistanteException : Exception levee ssi le nom donnee pour la matiere ne retourne aucune liste de notes
+     * @throws ValeurImpossibleException : Exception levee lorsque la note est inférieur a 0 ou supérieur a 20
      */
     public void ajouterNote(String matiere, Double note) throws MatiereInexistanteException, ValeurImpossibleException {
         List<Double> listeNotes = this.resultats.get(matiere);
