@@ -40,12 +40,9 @@ public class Etudiant {
         this.formation = form;
         // On initialise l'HashMap resultats avec toutes les matieres de la formation donnee
         this.resultats = new HashMap<String, List<Double>>();
-        Set<String> domaine = form.domaineMatieres();
-        Iterator<String> it = domaine.iterator();
-        String matiere;
+        Iterator<String> it = this.formation.domaineMatieres().iterator();
         while (it.hasNext()) {
-            matiere = it.next();
-            this.resultats.put(matiere, new ArrayList<Double>());
+            this.resultats.put(it.next(), new ArrayList<Double>());
         }
     }
 
