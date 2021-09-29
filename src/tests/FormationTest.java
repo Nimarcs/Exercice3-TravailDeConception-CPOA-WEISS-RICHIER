@@ -43,11 +43,27 @@ public class FormationTest {
     @Test (expected = MatiereExisteDejaException.class)
     public void ajouterMatiere_CasMatiereInexistante() throws MatiereExisteDejaException, ValeurImpossibleException {
         this.form1.ajouterMatiere("CPOA", 4.0);
+        try {
+            this.form1.ajouterMatiere("CPOA", 4.0);
+        } catch (Exception e) {
+            Set<String> listeMatieres = this.form1.domaineMatieres();
+            assertEquals("Test1: la formation doit avoir une matiere", 1, listeMatieres.size());
+        }
         this.form1.ajouterMatiere("CPOA", 4.0);
+    }
+
+    @Test (expected = ValeurImpossibleException.class)
+    public void ajouterMatiere_CasValeurException() throws MatiereExisteDejaException, ValeurImpossibleException {
+        this.form1.ajouterMatiere("CPOA", -4.0);
     }
 
     @Test
     public void supprimerMatiere() {
+        Set<String> listeMatieres = this.form2.domaineMatieres();
+        assertEquals("Test1: la formation doit avoir une matiere", 1, listeMatieres.size());
+        this.form2.supprimerMatiere("CPOA");
+        listeMatieres = this.form2.domaineMatieres();
+        assertEquals("Test2: la formation doit etre vide", 0, listeMatieres.size());
     }
 
     @Test

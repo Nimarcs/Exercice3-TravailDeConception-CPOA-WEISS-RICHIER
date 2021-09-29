@@ -39,6 +39,7 @@ public class Formation {
      * @param matiere matiere a ajouter, ne doit pas deja exister
      * @param coeff coefficient de la matiere, ne doit pas etre negatif
      * @throws MatiereExisteDejaException renvoye si la matiere existe deja pour la formation
+     * @throws ValeurImpossibleException renvoye si le coefficient est négatif
      */
     public void ajouterMatiere(String matiere, Double coeff) throws MatiereExisteDejaException, ValeurImpossibleException {
         if (coefficients.containsKey(matiere)){
