@@ -1,10 +1,7 @@
 // PACKAGE
 package code;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * CLASSE GROUPE
@@ -39,12 +36,26 @@ public class Groupe {
 
     }
 
+    /**
+     * Methode triParMerite, qui tri les etudiants selon leur moyenne generale decroissant
+     */
     public void triParMerite() {
-
+        List<Etudiant> listEtudiant = new ArrayList<Etudiant>(this.etudiants);
+        Collections.sort(listEtudiant, new Comparator<Etudiant>() {
+            @Override
+            public int compare(Etudiant a, Etudiant b) {
+                double moyA = a.calculerMoyenneGenerale();
+                double moyB = b.calculerMoyenneGenerale();
+                if (moyA>moyB) return 1;
+                if (moyA<moyB) return -1;
+                return 0;
+            }
+        });
+        this.etudiants = new HashSet<>(listEtudiant);
     }
 
     public void triAlpha() {
-        
+
     }
 
 
