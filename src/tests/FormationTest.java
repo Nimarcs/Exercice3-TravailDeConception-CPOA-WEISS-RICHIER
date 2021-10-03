@@ -7,7 +7,9 @@ import exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -20,7 +22,7 @@ public class FormationTest {
     private Formation form1, form2;
 
     @Before
-    public void setUp() throws Exception {
+    public void init() throws Exception {
         this.form1 = new Formation("Informatique");
         this.form2 = new Formation("Science");
         this.form2.ajouterMatiere("Mathematique", 4.0);
@@ -41,7 +43,7 @@ public class FormationTest {
     }
 
     @Test (expected = MatiereExisteDejaException.class)
-    public void ajouterMatiere_CasMatiereInexistante() throws MatiereExisteDejaException, ValeurImpossibleException {
+    public void ajouterMatiere_CasMatiereExisteDejaException() throws MatiereExisteDejaException, ValeurImpossibleException {
         this.form1.ajouterMatiere("CPOA", 4.0);
         try {
             this.form1.ajouterMatiere("CPOA", 4.0);
@@ -53,32 +55,53 @@ public class FormationTest {
     }
 
     @Test (expected = ValeurImpossibleException.class)
-    public void ajouterMatiere_CasValeurException() throws MatiereExisteDejaException, ValeurImpossibleException {
+    public void ajouterMatiere_CasValeurImpossibleException() throws MatiereExisteDejaException, ValeurImpossibleException {
         this.form1.ajouterMatiere("CPOA", -4.0);
     }
 
     @Test
-    public void supprimerMatiere() {
+    public void supprimerMatiere_CasOK() {
         Set<String> listeMatieres = this.form2.domaineMatieres();
         assertEquals("Test1: la formation doit avoir une matiere", 1, listeMatieres.size());
-        this.form2.supprimerMatiere("CPOA");
+        this.form2.supprimerMatiere("Mathematique");
         listeMatieres = this.form2.domaineMatieres();
         assertEquals("Test2: la formation doit etre vide", 0, listeMatieres.size());
     }
 
     @Test
-    public void changerCoefficient() {
+    public void supprimerMatiere_CasInexistant() {
+        Set<String> listeMatieres = this.form2.domaineMatieres();
+        assertEquals("Test1: la formation doit avoir une matiere", 1, listeMatieres.size());
+        this.form2.supprimerMatiere("Français");
+        listeMatieres = this.form2.domaineMatieres();
+        assertEquals("Test2: la formation doit toujours avoir une matiere", 1, listeMatieres.size());
     }
 
     @Test
-    public void domaineMatieres() {
+    public void changerCoefficient_CasOK() throws MatiereInexistanteException, ValeurImpossibleException {
+        this.form2.changerCoefficient("Mathematique", 3.0);
+        assertEquals("Test1: le coefficient de la matiere mathematique doit etre de 3 desormais", 3.0, this.form2.getCoefficient("Mathematique"), 0.1);
+    }
+
+    @Test (expected = ValeurImpossibleException.class)
+    public void changerCoefficient_CasValeurImpossibleException() throws MatiereInexistanteException, ValeurImpossibleException {
+        this.form2.changerCoefficient("Mathematique", -1.0);
+    }
+
+    @Test (expected = MatiereInexistanteException.class)
+    public void changerCoefficient_CasMatiereInexistanteException() throws MatiereInexistanteException, ValeurImpossibleException {
+        this.form2.changerCoefficient("Français", 2.0);
     }
 
     @Test
-    public void getCoefficient() {
+    public void getCoefficient_CasOK() throws MatiereInexistanteException {
+        double res = this.form2.getCoefficient("Mathematique");
+        assertEquals("Test1: le coefficient doit etre de 4.0", 4.0, this.form2.getCoefficient("Mathematique"), 0.1);
     }
 
-    @Test
-    public void getIdFormation() {
+    @Test (expected = MatiereInexistanteException.class)
+    public void getCoefficient_CasMatiereInexistanteException() throws MatiereInexistanteException {
+        double res = this.form2.getCoefficient("Français");
     }
+
 }
