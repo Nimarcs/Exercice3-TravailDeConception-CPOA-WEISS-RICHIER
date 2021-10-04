@@ -29,11 +29,11 @@ public class Groupe {
     }
 
     public double calculerMoyenneGroupe(String matiere) {
-
+        return 0.0;
     }
 
     public double calculerMoyenneGenerale() {
-
+        return 0.0;
     }
 
     /**
