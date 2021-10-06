@@ -60,7 +60,7 @@ public class FormationTest {
     }
 
     @Test
-    public void supprimerMatiere_CasOK() {
+    public void supprimerMatiere_CasOK() throws MatiereInexistanteException {
         Set<String> listeMatieres = this.form2.domaineMatieres();
         assertEquals("Test1: la formation doit avoir une matiere", 1, listeMatieres.size());
         this.form2.supprimerMatiere("Mathematique");
@@ -69,7 +69,7 @@ public class FormationTest {
     }
 
     @Test (expected = MatiereInexistanteException.class)
-    public void supprimerMatiere_CasInexistant() {
+    public void supprimerMatiere_CasInexistant() throws MatiereInexistanteException {
         this.form2.supprimerMatiere("Algortihme");
     }
 

@@ -55,8 +55,9 @@ public class Formation {
      * supprime la matiere donnee de la formation
      * @param matiere matiere a supprimer
      */
-    public void supprimerMatiere(String matiere){
-        coefficients.remove(matiere);
+    public void supprimerMatiere(String matiere) throws MatiereInexistanteException {
+        if (coefficients.containsKey(matiere)) coefficients.remove(matiere);
+        else throw new MatiereInexistanteException(matiere);
     }
 
     /**
