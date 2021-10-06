@@ -13,54 +13,57 @@ package exceptions {
     class ListeNotesVideException <Exception> {
         + ListeNotesVideException(nom:String)
     }
+    class AjoutSuppressionEtudiantImpossibleException <Exception> {
+        + AjoutSuppressionEtudiantImpossibleException(e:Etudiant)
+    }
 
 }
 
 package code {
 
-class Groupe {
-    + Groupe()
-    + ajouterEtudiant(etu:Etudiant) : void
-    + supprimerEtudiant(etu:Etudiant) : void
-    + calculerMoyenneGroupe(matiere:String) : double
-    + calculerMoyenneGeneraleGroupe() : double
-    + triParMerite() : void
-    + triAlpha() : void
-}
-class Etudiant {
-    - resultats : HashMap<String, List<Double>>
-    + Etudiant(id:Identite, form:Formation)
-    + ajouterNote(matiere:String, note:Double) : void
-    + calculerMoyenne(matiere:String) : double
-    + calculerMoyenneGenerale() : double
-    + getIdentite() : Identite
-    + getFormation() : Formation
-    + getResultat(matiere:String) : List<Double>
-}
-class Identite {
-    - nip : String
-    - nom : String
-    - prenom : String
-    + Identite(numIP:String, nom:String, prenom:String)
-    + getNIP() : String
-    + getNom() : String
-    + getPrenom() : String
-}
-class Formation {
-    - idFormation : String
-    - coefficients : HasMap<String, Double>
-    + Formation(id:String)
-    + ajouterMatiere(matiere:String, coeff:Double) : void
-    + supprimerMatiere (matiere:String) : void
-    + changerCoefficient(matiere:String, coeff:Double) : void
-    + domaineMatieres() : Set<String>
-    + getCoefficient(matiere:String) : Double
-    + getIDFormation() : String
-}
-Groupe "*" --> "*" Etudiant : - etudiants
-Groupe "*" --> "1" Formation : - formation
-Etudiant "*" --> "1" Formation : - formation
-Etudiant "1" --> "1" Identite : - identite
+    class Groupe {
+        + Groupe()
+        + ajouterEtudiant(etu:Etudiant) : void
+        + supprimerEtudiant(etu:Etudiant) : void
+        + calculerMoyenneGroupe(matiere:String) : double
+        + calculerMoyenneGeneraleGroupe() : double
+        + triParMerite() : void
+        + triAlpha() : void
+    }
+    class Etudiant {
+        - resultats : HashMap<String, List<Double>>
+        + Etudiant(id:Identite, form:Formation)
+        + ajouterNote(matiere:String, note:Double) : void
+        + calculerMoyenne(matiere:String) : double
+        + calculerMoyenneGenerale() : double
+        + getIdentite() : Identite
+        + getFormation() : Formation
+        + getResultat(matiere:String) : List<Double>
+    }
+    class Identite {
+        - nip : String
+        - nom : String
+        - prenom : String
+        + Identite(numIP:String, nom:String, prenom:String)
+        + getNIP() : String
+        + getNom() : String
+        + getPrenom() : String
+    }
+    class Formation {
+        - idFormation : String
+        - coefficients : HasMap<String, Double>
+        + Formation(id:String)
+        + ajouterMatiere(matiere:String, coeff:Double) : void
+        + supprimerMatiere (matiere:String) : void
+        + changerCoefficient(matiere:String, coeff:Double) : void
+        + domaineMatieres() : Set<String>
+        + getCoefficient(matiere:String) : Double
+        + getIDFormation() : String
+    }
+    Groupe "*" --> "*" Etudiant : - etudiants
+    Groupe "*" --> "1" Formation : - formation
+    Etudiant "*" --> "1" Formation : - formation
+    Etudiant "1" --> "1" Identite : - identite
 
 }
 
