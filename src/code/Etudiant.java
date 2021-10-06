@@ -153,9 +153,7 @@ public class Etudiant {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Etudiant etudiant = (Etudiant) o;
-        boolean equals = false;
-        if (this.getIdentite().getNip()==this.getIdentite().getNip()) equals = true;
-        return equals;
+        return this.getIdentite().getNip().equals(etudiant.getIdentite().getNip());
     }
 
     /**
