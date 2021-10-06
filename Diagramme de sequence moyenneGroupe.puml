@@ -1,0 +1,18 @@
+@startuml
+participant "g:Groupe" as g
+participant "etudiants:List<Etudiant>" as e
+participant "e:Etudiant" as etu
+
+ -> g : calculerMoyenneGroupe("CPOA")
+ g -> e: iterator()
+ activate e
+ e --> g:it Iterator
+ deactivate e
+ loop it.hasNext()
+ activate etu
+ g -> etu : calculerMoyenne("CPOA")
+ etu --> g: double
+ end
+  <-- g : double
+
+@enduml
