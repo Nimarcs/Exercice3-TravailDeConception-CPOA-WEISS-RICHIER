@@ -4,7 +4,6 @@ package code;
 // IMPORTS
 
 import exceptions.*;
-
 import java.util.*;
 
 /**
@@ -73,11 +72,15 @@ public class Etudiant {
      * @param matiere : String, nom de la matiere dont on veut faire la moyenne
      * @return Double: moyenne de l'etudiant pour la matiere donnee
      * @throws MatiereInexistanteException : Exception levee ssi le nom donnee pour la matiere ne retourne aucune liste de notes
+     * @throws ListeNotesVideException : Exception levee ssi la lise des notes pour la matiere donnee est vide
      */
-    public double calculerMoyenne(String matiere) throws MatiereInexistanteException {
+    public double calculerMoyenne(String matiere) throws MatiereInexistanteException, ListeNotesVideException {
         List<Double> listeNotes = this.resultats.get(matiere);
         if (listeNotes == null) {
             throw new MatiereInexistanteException(matiere);
+        }
+        if (listeNotes.size()==0) {
+            throw new ListeNotesVideException(matiere);
         }
         double somme = 0;
         for (int i = 0; i < listeNotes.size(); i++) {
@@ -100,11 +103,14 @@ public class Etudiant {
         while (it.hasNext()) {
             matiere = it.next();
             try {
-                moyenne = this.calculerMoyenne(matiere);
                 coefficient = this.formation.getCoefficient(matiere);
-            } catch (MatiereInexistanteException e) {
-                // Cas techniquement impossible, car les matières de la formation doivent être les mêmes que celle de l'étudiant, au mêmes nombres
+                moyenne = this.calculerMoyenne(matiere);
+            } catch (MatiereInexistanteException | ListeNotesVideException e) {
+                // Cas techniquement impossible pour MatiereInexistanteException, car les matières de la formation doivent être les mêmes que celle de l'étudiant, au mêmes nombres
                 e.printStackTrace();
+                // Cas ListeNotesVideException, on mets la moyenne et le coefficient a 0 afin de ne pas compter cette matiere dans la moyenne
+                moyenne = 0;
+                coefficient = 0;
             }
             sommeCoeff += coefficient;
             sommeMoyenne += (moyenne * coefficient);
