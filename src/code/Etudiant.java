@@ -143,18 +143,25 @@ public class Etudiant {
         return list;
     }
 
+    /**
+     * Methode equals qui determine si l'objet this et celui en parametres sont egaux ou non
+     * @param o : Object, objet dont on teste l'égalité
+     * @return boolean, true si egaux sinon false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Etudiant etudiant = (Etudiant) o;
         boolean equals = false;
-        if (
-
-        )
-            return equals;
+        if (this.getIdentite().getNip()==this.getIdentite().getNip()) equals = true;
+        return equals;
     }
 
+    /**
+     * Methode hasCode suite au Set<Etudiant> dans la classe Groupe
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(formation, identite, resultats);

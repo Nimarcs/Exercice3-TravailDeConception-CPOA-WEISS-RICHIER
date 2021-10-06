@@ -1,7 +1,7 @@
 // PACKAGE
 package code;
 
-import exceptions.FormationNonCorrespondanteException;
+import exceptions.AjoutSuppressionEtudiantImpossibleException;
 import exceptions.ListeNotesVideException;
 
 import java.util.*;
@@ -24,8 +24,8 @@ public class Groupe {
 
     // METHODES
 
-    public void ajouterEtudiant(Etudiant etu) throws FormationNonCorrespondanteException {
-        if (this.formation!=etu.getFormation()) throw new FormationNonCorrespondanteException(etu);
+    public void ajouterEtudiant(Etudiant etu) throws AjoutSuppressionEtudiantImpossibleException {
+        if (this.formation!=etu.getFormation()) throw new AjoutSuppressionEtudiantImpossibleException(etu);
         this.etudiants.add(etu);
     }
 
