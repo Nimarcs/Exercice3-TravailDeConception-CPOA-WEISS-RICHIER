@@ -93,7 +93,7 @@ public class Etudiant {
      * Methode calculerMoyenneGenerale qui calcule la moyenne générale de l'etudiant avec toutes les matieres et leurs coefficients associés
      * @return Double: moyenne générale de l'étudiant
      */
-    public double calculerMoyenneGenerale() {
+    public double calculerMoyenneGenerale() throws ListeNotesVideException {
         Set<String> domaineMatieres = this.formation.domaineMatieres();
         Iterator<String> it = domaineMatieres.iterator();
         double sommeCoeff = 0;
@@ -115,6 +115,7 @@ public class Etudiant {
             sommeCoeff += coefficient;
             sommeMoyenne += (moyenne * coefficient);
         }
+        if (sommeCoeff==0) throw new ListeNotesVideException("toutes les matieres");
         return (sommeMoyenne / sommeCoeff);
     }
 
@@ -140,5 +141,22 @@ public class Etudiant {
             throw new MatiereInexistanteException(matiere);
         }
         return list;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Etudiant etudiant = (Etudiant) o;
+        boolean equals = false;
+        if (
+
+        )
+            return equals;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(formation, identite, resultats);
     }
 }

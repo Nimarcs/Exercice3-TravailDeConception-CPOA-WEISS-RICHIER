@@ -7,6 +7,6 @@ public class ListeNotesVideException extends Throwable {
      * @param nom nom de la matiere
      */
     public ListeNotesVideException(String nom){
-        super("La liste de note de la matiere " + nom + " est vide");
+        super("La liste de note de " + nom + " est vide");
     }
 }

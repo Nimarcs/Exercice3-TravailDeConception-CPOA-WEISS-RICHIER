@@ -1,6 +1,9 @@
 // PACKAGE
 package code;
 
+import exceptions.FormationNonCorrespondanteException;
+import exceptions.ListeNotesVideException;
+
 import java.util.*;
 
 /**
@@ -20,7 +23,9 @@ public class Groupe {
     }
 
     // METHODES
-    public void ajouterEtudiant(Etudiant etu) {
+
+    public void ajouterEtudiant(Etudiant etu) throws FormationNonCorrespondanteException {
+        if (this.formation!=etu.getFormation()) throw new FormationNonCorrespondanteException(etu);
         this.etudiants.add(etu);
     }
 
@@ -44,8 +49,13 @@ public class Groupe {
         Collections.sort(listEtudiant, new Comparator<Etudiant>() {
             @Override
             public int compare(Etudiant a, Etudiant b) {
-                double moyA = a.calculerMoyenneGenerale();
-                double moyB = b.calculerMoyenneGenerale();
+                double moyA = 0, moyB = 0;
+                try {
+                    moyA = a.calculerMoyenneGenerale();
+                    moyB = b.calculerMoyenneGenerale();
+                } catch (ListeNotesVideException e) {
+                    e.printStackTrace();
+                }
                 if (moyA>moyB) return 1;
                 if (moyA<moyB) return -1;
                 return 0;

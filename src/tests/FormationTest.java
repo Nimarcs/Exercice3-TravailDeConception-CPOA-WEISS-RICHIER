@@ -39,7 +39,7 @@ public class FormationTest {
         String matiere = it.next();
         double coeff = this.form1.getCoefficient("CPOA");
         assertEquals("Test OK3: la matiere de form1 doit etre CPOA", "CPOA", matiere);
-        assertEquals("Test OK4: La coefficient de la seule matiere de form1 est de 5.0", 5.0, coeff, 5.0);
+        assertEquals("Test OK4: La coefficient de la seule matiere de form1 est de 5.0", 5.0, coeff, 1.0);
     }
 
     @Test (expected = MatiereExisteDejaException.class)
@@ -68,13 +68,9 @@ public class FormationTest {
         assertEquals("Test2: la formation doit etre vide", 0, listeMatieres.size());
     }
 
-    @Test
+    @Test (expected = MatiereInexistanteException.class)
     public void supprimerMatiere_CasInexistant() {
-        Set<String> listeMatieres = this.form2.domaineMatieres();
-        assertEquals("Test1: la formation doit avoir une matiere", 1, listeMatieres.size());
-        this.form2.supprimerMatiere("Français");
-        listeMatieres = this.form2.domaineMatieres();
-        assertEquals("Test2: la formation doit toujours avoir une matiere", 1, listeMatieres.size());
+        this.form2.supprimerMatiere("Algortihme");
     }
 
     @Test

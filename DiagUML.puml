@@ -10,6 +10,10 @@ package exceptions {
     class ValeurImpossibleException <Exception> {
         + ValeurImpossibleException(valeur:double)
     }
+    class ListeNotesVideException <Exception> {
+        + ListeNotesVideException(nom:String)
+    }
+
 }
 
 package code {
