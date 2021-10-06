@@ -107,7 +107,9 @@ public class Etudiant {
                 moyenne = this.calculerMoyenne(matiere);
             } catch (MatiereInexistanteException | ListeNotesVideException e) {
                 // Cas techniquement impossible pour MatiereInexistanteException, car les matières de la formation doivent être les mêmes que celle de l'étudiant, au mêmes nombres
-                e.printStackTrace();
+                if (e.getClass() == MatiereInexistanteException.class)
+                    e.printStackTrace();
+                
                 // Cas ListeNotesVideException, on mets la moyenne et le coefficient a 0 afin de ne pas compter cette matiere dans la moyenne
                 moyenne = 0;
                 coefficient = 0;
