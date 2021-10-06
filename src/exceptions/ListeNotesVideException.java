@@ -1,6 +1,6 @@
 package exceptions;
 
-public class ListeNotesVideException extends Throwable {
+public class ListeNotesVideException extends Exception {
 
     /**
      * exception appelle lorsque la liste de note d'une matiere est vide
