@@ -21,11 +21,11 @@ public class Groupe {
 
     // METHODES
     public void ajouterEtudiant(Etudiant etu) {
-
+        this.etudiants.add(etu);
     }
 
     public void supprimerEtudiant(Etudiant etu) {
-
+        this.etudiants.remove(etu);
     }
 
     public double calculerMoyenneGroupe(String matiere) {
