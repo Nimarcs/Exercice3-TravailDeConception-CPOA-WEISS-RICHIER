@@ -28,7 +28,7 @@ public class Groupe {
     /**
      * Methode d'ajout d'un etudiant au sein du groupe par rapport à son NIP
      * @param etu : Etudiant, celui qu'on souhaite ajouter
-     * @throws AjoutSuppressionEtudiantImpossibleException : declenchee ssi la formation du groupe et de celle de l'etudiant sont differentes
+     * @throws AjoutSuppressionEtudiantImpossibleException : declenchee ssi la formation du groupe et de celle de l'etudiant sont differentes, si l'etudiant est null ou si l'etudiant est deja dans le groupe 
      */
     public void ajouterEtudiant(Etudiant etu) throws AjoutSuppressionEtudiantImpossibleException {
         if (etu==null || this.formation!=etu.getFormation() || this.etudiants.contains(etu)) throw new AjoutSuppressionEtudiantImpossibleException();
@@ -38,7 +38,7 @@ public class Groupe {
     /**
      * Methode de suppression d'un etudiant au sein du groupe par rapport à son NIP
      * @param etu : Etudiant, celui qu'on desire supprimer
-     * @throws AjoutSuppressionEtudiantImpossibleException : declenchee ssi l'etudiant n'est pas present dans le groupe au préalable
+     * @throws AjoutSuppressionEtudiantImpossibleException : declenchee ssi l'etudiant n'est pas present dans le groupe au préalable ou si l'etudiant en parametre est null
      */
     public void supprimerEtudiant(Etudiant etu) throws AjoutSuppressionEtudiantImpossibleException {
         if (etu!=null && this.etudiants.contains(etu)) this.etudiants.remove(etu);
