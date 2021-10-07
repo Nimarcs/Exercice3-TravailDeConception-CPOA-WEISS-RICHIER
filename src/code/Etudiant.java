@@ -154,8 +154,9 @@ public class Etudiant {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Etudiant etudiant = (Etudiant) o;
-        return this.getIdentite().getNip().equals(etudiant.getIdentite().getNip());
+        Identite other = ((Etudiant) o).getIdentite();
+        Identite t = this.getIdentite();
+        return (other.getNip().equals(t.getNip()));
     }
 
     /**
@@ -164,6 +165,9 @@ public class Etudiant {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(formation, identite, resultats);
+        final int premier = 31;
+        int result = 1;
+        result = premier * result + Integer.valueOf(this.identite.getNip());
+        return result;
     }
 }

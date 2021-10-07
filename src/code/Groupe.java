@@ -123,7 +123,7 @@ public class Groupe {
      */
     public void triParMerite() {
         List<Etudiant> listEtudiant = new ArrayList<Etudiant>(this.etudiants);
-        Collections.sort(listEtudiant, new Comparator<Etudiant>() {
+        listEtudiant.sort(new Comparator<Etudiant>() {
             @Override
             public int compare(Etudiant a, Etudiant b) {
                 double moyA = 0, moyB = 0;
@@ -133,8 +133,8 @@ public class Groupe {
                 } catch (ListeNotesVideException e) {
                     e.printStackTrace();
                 }
-                if (moyA>moyB) return 1;
-                if (moyA<moyB) return -1;
+                if (moyA > moyB) return 1;
+                if (moyA < moyB) return -1;
                 return 0;
             }
         });
@@ -142,8 +142,28 @@ public class Groupe {
     }
 
     public void triAlpha() {
-
+        List<Etudiant> listEtudiant = new ArrayList<Etudiant>(this.etudiants);
+        listEtudiant.sort(new Comparator<Etudiant>() {
+            @Override
+            public int compare(Etudiant a, Etudiant b) {
+                Identite iA = a.getIdentite();
+                Identite iB = b.getIdentite();
+                int i = iA.getNom().compareTo(iB.getNom());
+                if (i!=0) {return i;}
+                else return iA.getPrenom().compareTo(iB.getPrenom());
+            }
+        });
+        this.etudiants = new HashSet<>(listEtudiant);
     }
 
+    // GETTERS
 
+
+    public Set<Etudiant> getEtudiants() {
+        return etudiants;
+    }
+
+    public Formation getFormation() {
+        return formation;
+    }
 }
