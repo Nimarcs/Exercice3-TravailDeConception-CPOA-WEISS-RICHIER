@@ -41,7 +41,7 @@ public class Groupe {
      * @throws AjoutSuppressionEtudiantImpossibleException : declenchee ssi l'etudiant n'est pas present dans le groupe au préalable
      */
     public void supprimerEtudiant(Etudiant etu) throws AjoutSuppressionEtudiantImpossibleException {
-        if (etu!=null || this.etudiants.contains(etu)) this.etudiants.remove(etu);
+        if (etu!=null && this.etudiants.contains(etu)) this.etudiants.remove(etu);
         else throw new AjoutSuppressionEtudiantImpossibleException();
     }
 

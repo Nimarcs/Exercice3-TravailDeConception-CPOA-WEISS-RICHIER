@@ -168,9 +168,6 @@ public class Etudiant {
      */
     @Override
     public int hashCode() {
-        final int premier = 31;
-        int result = 1;
-        result = premier * result + Integer.valueOf(this.identite.getNip());
-        return result;
+        return this.identite.getNip().getBytes().hashCode();
     }
 }
