@@ -7,7 +7,7 @@ import org.junit.Test;
 /**
  * classe pour tester les methodes de la classe Groupe
  */
-public class TestsGroupe {
+public class TestsGroupeMarcus {
 
 
 
