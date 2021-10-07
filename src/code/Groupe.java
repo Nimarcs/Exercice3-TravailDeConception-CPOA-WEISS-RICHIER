@@ -74,7 +74,7 @@ public class Groupe {
 
         //si aucun etudiant n'a de note dans la matiere on renvoie une erreur
         if (nb == 0){
-            throw new ListeNotesVideException("Aucune note n'a ete attribue au groupe dans cette matiere");
+            throw new ListeNotesVideException(matiere + " du groupe");
         }
         //sinon on renvoie la moyenne
         return (double)somme/nb;
@@ -111,7 +111,7 @@ public class Groupe {
 
         //si aucune matiere n'a de note on revoie une erreur
         if (nb == 0){
-            throw new ListeNotesVideException("Aucune note n'a ete attribue dans ce groupe");
+            throw new ListeNotesVideException("toutes les matieres du groupe");
         }
 
         //sinon on renvoie la matiere
