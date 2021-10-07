@@ -38,13 +38,7 @@ public class GroupeTestLucas {
 
     @Test
     public void supprimerEtudiant() throws AjoutSuppressionEtudiantImpossibleException {
-        this.gr.ajouterEtudiant(new Etudiant(new Identite("0002", "Long", "Martin"), this.gr.getFormation()));
-        Iterator i = this.gr.getEtudiants().iterator();
-        while (i.hasNext()) {
-            Etudiant e = (Etudiant)i.next();
-            System.out.println(e.getIdentite().getNip());
-        }
-
+        this.gr.supprimerEtudiant(null);
     }
 
     @Test

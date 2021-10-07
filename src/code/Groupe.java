@@ -28,10 +28,10 @@ public class Groupe {
     /**
      * Methode d'ajout d'un etudiant au sein du groupe
      * @param etu : Etudiant, celui qu'on souhaite ajouter
-     * @throws AjoutSuppressionEtudiantImpossibleException : dclenchee ssi la formation du groupe et de celle de l'etudiant sont differentes
+     * @throws AjoutSuppressionEtudiantImpossibleException : declenchee ssi la formation du groupe et de celle de l'etudiant sont differentes
      */
     public void ajouterEtudiant(Etudiant etu) throws AjoutSuppressionEtudiantImpossibleException {
-        if (this.formation!=etu.getFormation()) throw new AjoutSuppressionEtudiantImpossibleException(etu);
+        if (etu==null || this.formation!=etu.getFormation()) throw new AjoutSuppressionEtudiantImpossibleException(etu);
         this.etudiants.add(etu);
     }
 
@@ -41,7 +41,7 @@ public class Groupe {
      * @throws AjoutSuppressionEtudiantImpossibleException : declenchee ssi l'etudiant n'est pas present dans le groupe au préalable
      */
     public void supprimerEtudiant(Etudiant etu) throws AjoutSuppressionEtudiantImpossibleException {
-        if (this.etudiants.contains(etu)) this.etudiants.remove(etu);
+        if (etu==null || this.etudiants.contains(etu)) this.etudiants.remove(etu);
         else throw new AjoutSuppressionEtudiantImpossibleException(etu);
     }
 
