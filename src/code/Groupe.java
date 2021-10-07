@@ -3,6 +3,7 @@ package code;
 
 import exceptions.AjoutSuppressionEtudiantImpossibleException;
 import exceptions.ListeNotesVideException;
+import exceptions.MatiereInexistanteException;
 
 import java.util.*;
 
@@ -44,12 +45,77 @@ public class Groupe {
         else throw new AjoutSuppressionEtudiantImpossibleException(etu);
     }
 
-    public double calculerMoyenneGroupe(String matiere) {
-        return 0.0;
+    /**
+     * methode permettant de calculer la moyenne du groupe dans une matiere
+     * si un etudiant n'a pas de note calcule la moyenne comme si l'etudiant n'existait pas
+     * @param matiere matiere dont on veut obtenir la moyenne
+     * @return moyenne du groupe
+     * @throws MatiereInexistanteException renvoye si les etudiants n'ont pas la matière
+     * @throws ListeNotesVideException renvoye si aucun n'etudiant n'a ete note dans la matiere
+     */
+    public double calculerMoyenneGroupe(String matiere) throws MatiereInexistanteException, ListeNotesVideException {
+        //on initialise les valeurs pour calculer la moyenne
+        int somme = 0, nb = 0;
+
+        //on parcours les etudiants avec un iterator simplifie
+        for(Etudiant e : etudiants){
+
+            //on essaie de recuperer la moyenne de l'eleve dans la matiere
+            //si la matiere n'existe pas l'erreur est remonte
+            try {
+                //on incremente pour le calcul de la moyenne
+                somme += e.calculerMoyenne(matiere);
+                nb++;
+            } catch (ListeNotesVideException ex) {
+                //si l'etudiant n'a pas de note dans la matiere,
+                //on ne le compte pas pas
+            }
+        }
+
+        //si aucun etudiant n'a de note dans la matiere on renvoie une erreur
+        if (nb == 0){
+            throw new ListeNotesVideException("Aucune note n'a ete attribue au groupe dans cette matiere");
+        }
+        //sinon on renvoie la moyenne
+        return (double)somme/nb;
     }
 
-    public double calculerMoyenneGenerale() {
-        return 0.0;
+    /**
+     * methode qui permet de calculer la moyenne generale d'un groupe
+     * si une matiere n'a pas de note calcule la moyenne comme si la matiere n'existe pas
+     * @return moyenne generale du groupe
+     * @throws ListeNotesVideException renvoye si aucune note n'a ete attribue dans le groupe
+     */
+    public double calculerMoyenneGenerale() throws ListeNotesVideException {
+        //on initialise les valeurs pour calculer la moyenne
+        int somme = 0, nb = 0;
+
+        //on parcours les matieres avec un iterateur simplifie
+        for (String matiere : formation.domaineMatieres()) {
+
+            //pour chaque matiere on incremente les valeurs pour le calcul de la moyenne
+            try{
+
+                //on recupere le coefficient
+                double coef = formation.getCoefficient(matiere);
+                somme += calculerMoyenneGroupe(matiere) * coef;
+                nb += coef;
+
+            }catch (ListeNotesVideException e) {
+                //si la matiere n'a pas de note on ne la compte pas
+            } catch (MatiereInexistanteException exceptionImpossible){
+                //theoriquement impossible
+                exceptionImpossible.printStackTrace();
+            }
+        }
+
+        //si aucune matiere n'a de note on revoie une erreur
+        if (nb == 0){
+            throw new ListeNotesVideException("Aucune note n'a ete attribue dans ce groupe");
+        }
+
+        //sinon on renvoie la matiere
+        return (double)somme/nb;
     }
 
     /**
