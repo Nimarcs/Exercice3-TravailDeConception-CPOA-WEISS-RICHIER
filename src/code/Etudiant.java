@@ -4,6 +4,8 @@ package code;
 // IMPORTS
 
 import exceptions.*;
+
+import java.security.InvalidParameterException;
 import java.util.*;
 
 /**
@@ -34,7 +36,8 @@ public class Etudiant {
      * @param id   : Identite, identite de l'etudiant
      * @param form : Formation, departement d'etude de l'etudiant
      */
-    public Etudiant(Identite id, Formation form) {
+    public Etudiant(Identite id, Formation form) throws InvalidParameterException{
+        if (id == null || form == null) throw new InvalidParameterException("L'etudiant doit avoir forcement une identite et une formation");
         this.identite = id;
         this.formation = form;
         // On initialise l'HashMap resultats avec toutes les matieres de la formation donnee
