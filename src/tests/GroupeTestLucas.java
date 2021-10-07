@@ -32,13 +32,27 @@ public class GroupeTestLucas {
         assertEquals("test 2: nombre d'etudiant de la formation est de 3", 3, this.gr.getEtudiants().size());
     }
     @Test (expected = AjoutSuppressionEtudiantImpossibleException.class)
-    public void ajouterEtudiant_CasException() throws AjoutSuppressionEtudiantImpossibleException {
+    public void ajouterEtudiant_CasFormationNonIdentique() throws AjoutSuppressionEtudiantImpossibleException {
         this.gr.ajouterEtudiant(new Etudiant(new Identite("0003", "Long", "Martin"), new Formation("0999")));
+    }
+    @Test (expected = AjoutSuppressionEtudiantImpossibleException.class)
+    public void ajouterEtudiant_CasEtudiantNull() throws AjoutSuppressionEtudiantImpossibleException {
+        this.gr.ajouterEtudiant(null);
     }
 
     @Test
     public void supprimerEtudiant() throws AjoutSuppressionEtudiantImpossibleException {
+        assertEquals("test 1: nombre d'etudiant de la formation est de 2", 2, this.gr.getEtudiants().size());
+        this.gr.supprimerEtudiant(new Etudiant(new Identite("0001", "Weiss", "Lucas"), new Formation("444")));
+        assertEquals("test 2: nombre d'etudiant de la formation est de 1", 1, this.gr.getEtudiants().size());
+    }
+    @Test (expected = AjoutSuppressionEtudiantImpossibleException.class)
+    public void supprimerEtudiant_CasEtudiantNull() throws AjoutSuppressionEtudiantImpossibleException {
         this.gr.supprimerEtudiant(null);
+    }
+    @Test (expected = AjoutSuppressionEtudiantImpossibleException.class)
+    public void supprimerEtudiant_CasEtudiantPasDansLeGroupe() throws AjoutSuppressionEtudiantImpossibleException {
+        this.gr.supprimerEtudiant(new Etudiant(new Identite("9999", "Grolet", "Michel"), new Formation("444")));
     }
 
     @Test

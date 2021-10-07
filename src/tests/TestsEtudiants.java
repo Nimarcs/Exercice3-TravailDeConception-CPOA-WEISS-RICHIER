@@ -6,6 +6,7 @@ import code.Etudiant;
 import code.Formation;
 import code.Identite;
 import exceptions.ListeNotesVideException;
+import exceptions.MatiereExisteDejaException;
 import exceptions.MatiereInexistanteException;
 import exceptions.ValeurImpossibleException;
 
