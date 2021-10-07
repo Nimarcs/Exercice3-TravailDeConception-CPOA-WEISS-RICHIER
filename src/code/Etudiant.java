@@ -168,6 +168,6 @@ public class Etudiant {
      */
     @Override
     public int hashCode() {
-        return this.identite.getNip().getBytes().hashCode();
+        return this.identite.getNip().hashCode();
     }
 }

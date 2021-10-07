@@ -31,7 +31,7 @@ public class Groupe {
      * @throws AjoutSuppressionEtudiantImpossibleException : declenchee ssi la formation du groupe et de celle de l'etudiant sont differentes
      */
     public void ajouterEtudiant(Etudiant etu) throws AjoutSuppressionEtudiantImpossibleException {
-        if (etu==null || this.formation!=etu.getFormation()) throw new AjoutSuppressionEtudiantImpossibleException();
+        if (etu==null || this.formation!=etu.getFormation() || this.etudiants.contains(etu)) throw new AjoutSuppressionEtudiantImpossibleException();
         this.etudiants.add(etu);
     }
 

@@ -24,7 +24,7 @@ public class ConstructeurTest {
 
     @Test
     public void testConstructeurEtudiant_CasOK() {
-        Etudiant e = new Etudiant(new Identite("0001", "Weiss", "Lucas"), new Formation("DUT INFO"));
+        Etudiant e = new Etudiant(new Identite("FR0001", "Weiss", "Lucas"), new Formation("DUT INFO"));
     }
     @Test (expected = InvalidParameterException.class)
     public void testConstructeurEtudiant_CasNullIdentite() {
@@ -32,7 +32,7 @@ public class ConstructeurTest {
     }
     @Test (expected = InvalidParameterException.class)
     public void testConstructeurEtudiant_CasNullFormation() {
-        Etudiant e = new Etudiant(new Identite("0001", "Weiss", "Lucas"), null);
+        Etudiant e = new Etudiant(new Identite("FR0001", "Weiss", "Lucas"), null);
     }
 
 }
