@@ -4,7 +4,6 @@ package code;
 // IMPORTS
 
 import exceptions.*;
-
 import java.security.InvalidParameterException;
 import java.util.*;
 
@@ -160,15 +159,6 @@ public class Etudiant {
         Identite other = ((Etudiant) o).getIdentite();
         Identite t = this.getIdentite();
         return (other.getNip().equals(t.getNip()));
-    }
-
-    /**
-     * Methode hashCode suite au Set<Etudiant> dans la classe Groupe
-     * @return
-     */
-    @Override
-    public int hashCode() {
-        return this.identite.getNip().hashCode();
     }
 
 }

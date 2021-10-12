@@ -20,7 +20,12 @@ public class Groupe {
     // CONSTRUCTEUR
     public Groupe(Formation form) {
         this.formation = form;
-        this.etudiants = new TreeSet<Etudiant>();
+        this.etudiants = new TreeSet<Etudiant>(new Comparator<Etudiant>() {
+            @Override
+            public int compare(Etudiant o1, Etudiant o2) {
+                return 0;
+            }
+        });
     }
 
     // METHODES
@@ -123,8 +128,7 @@ public class Groupe {
      * Methode triParMerite, qui tri les etudiants selon leur moyenne generale decroissant
      */
     public void triParMerite() {
-        List<Etudiant> listEtudiant = new ArrayList<Etudiant>(this.etudiants);
-        listEtudiant.sort(new Comparator<Etudiant>() {
+        TreeSet<Etudiant> tmp = new TreeSet<>(new Comparator<Etudiant>() {
             @Override
             public int compare(Etudiant a, Etudiant b) {
                 double moyA = 0, moyB = 0;
@@ -137,7 +141,11 @@ public class Groupe {
                 return Double.compare(moyA, moyB);
             }
         });
-        this.etudiants = new HashSet<>(listEtudiant);
+        for (Etudiant e : this.etudiants) {
+            tmp.add(e);
+            System.out.println(e.getIdentite().getNom());
+        }
+        this.etudiants = tmp;
     }
 
     /**

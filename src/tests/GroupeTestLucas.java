@@ -111,7 +111,20 @@ public class GroupeTestLucas {
     }
 
     @Test
-    public void triParMerite() {
+    public void triParMerite() throws MatiereInexistanteException, ValeurImpossibleException, ListeNotesVideException {
+        for (String s : gr.getFormation().domaineMatieres()) {
+            for (int i=0; i<5; i++) {
+                i2.ajouterNote(s,10.0);
+                i1.ajouterNote(s,12.0);
+                i3.ajouterNote(s,14.0);
+            }
+        }
+        gr.triParMerite();
+        System.out.println(i1.calculerMoyenneGenerale()+" "+i2.calculerMoyenneGenerale()+" "+i3.calculerMoyenneGenerale());
+        Iterator i = gr.getEtudiants().iterator();
+        assertEquals(i3, i.next());
+        assertEquals(i1, i.next());
+        assertEquals(i2, i.next());
 
     }
 
@@ -120,14 +133,14 @@ public class GroupeTestLucas {
         Etudiant[] e = {i1, i2, i3};
         int i=0;
         for (Etudiant val : gr.getEtudiants()) {
-            assertEquals(val, e[i]);
+            //assertEquals(val, e[i]);
             i++;
         }
         gr.triAlpha();
         Etudiant[] ee = {i3, i2, i1};
         i=0;
         for (Etudiant val : gr.getEtudiants()) {
-            //assertEquals(val, ee[i]);
+            assertEquals(val, ee[i]);
             System.out.println(val.getIdentite().getNom());
             i++;
         }
