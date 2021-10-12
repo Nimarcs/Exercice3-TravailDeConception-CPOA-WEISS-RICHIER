@@ -163,11 +163,12 @@ public class Etudiant {
     }
 
     /**
-     * Methode hasCode suite au Set<Etudiant> dans la classe Groupe
+     * Methode hashCode suite au Set<Etudiant> dans la classe Groupe
      * @return
      */
     @Override
     public int hashCode() {
         return this.identite.getNip().hashCode();
     }
+
 }

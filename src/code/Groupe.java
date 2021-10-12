@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  * CLASSE GROUPE
- * Definit une groupe d'etudiant dans un domaine de formation
+ * Definit un groupe d'etudiant dans un domaine de formation
  */
 public class Groupe {
 
@@ -20,7 +20,7 @@ public class Groupe {
     // CONSTRUCTEUR
     public Groupe(Formation form) {
         this.formation = form;
-        this.etudiants = new HashSet<Etudiant>();
+        this.etudiants = new TreeSet<Etudiant>();
     }
 
     // METHODES
@@ -28,7 +28,7 @@ public class Groupe {
     /**
      * Methode d'ajout d'un etudiant au sein du groupe par rapport à son NIP
      * @param etu : Etudiant, celui qu'on souhaite ajouter
-     * @throws AjoutSuppressionEtudiantImpossibleException : declenchee ssi la formation du groupe et de celle de l'etudiant sont differentes, si l'etudiant est null ou si l'etudiant est deja dans le groupe 
+     * @throws AjoutSuppressionEtudiantImpossibleException : declenchee ssi la formation du groupe et de celle de l'etudiant sont differentes, si l'etudiant est null ou si l'etudiant est deja dans le groupe
      */
     public void ajouterEtudiant(Etudiant etu) throws AjoutSuppressionEtudiantImpossibleException {
         if (etu==null || this.formation!=etu.getFormation() || this.etudiants.contains(etu)) throw new AjoutSuppressionEtudiantImpossibleException();
@@ -55,9 +55,10 @@ public class Groupe {
      */
     public double calculerMoyenneGroupe(String matiere) throws MatiereInexistanteException, ListeNotesVideException {
         //on initialise les valeurs pour calculer la moyenne
-        int somme = 0, nb = 0;
+        double somme = 0;
+        int nb = 0;
 
-        //on parcours les etudiants avec un iterator simplifie
+        //on parcourt les etudiants avec un iterator simplifie
         for(Etudiant e : etudiants){
 
             //on essaie de recuperer la moyenne de l'eleve dans la matiere
@@ -68,7 +69,7 @@ public class Groupe {
                 nb++;
             } catch (ListeNotesVideException ex) {
                 //si l'etudiant n'a pas de note dans la matiere,
-                //on ne le compte pas pas
+                //on ne le compte pas
             }
         }
 
@@ -77,7 +78,7 @@ public class Groupe {
             throw new ListeNotesVideException(matiere + " du groupe");
         }
         //sinon on renvoie la moyenne
-        return (double)somme/nb;
+        return somme/nb;
     }
 
     /**
@@ -90,7 +91,7 @@ public class Groupe {
         //on initialise les valeurs pour calculer la moyenne
         int somme = 0, nb = 0;
 
-        //on parcours les matieres avec un iterateur simplifie
+        //on parcourt les matieres avec un iterateur simplifie
         for (String matiere : formation.domaineMatieres()) {
 
             //pour chaque matiere on incremente les valeurs pour le calcul de la moyenne
@@ -133,17 +134,17 @@ public class Groupe {
                 } catch (ListeNotesVideException e) {
                     e.printStackTrace();
                 }
-                if (moyA > moyB) return 1;
-                if (moyA < moyB) return -1;
-                return 0;
+                return Double.compare(moyA, moyB);
             }
         });
         this.etudiants = new HashSet<>(listEtudiant);
     }
 
+    /**
+     * Methode triParAlphabetique qui trie les eleves par leur ordre alphabétique
+     */
     public void triAlpha() {
-        List<Etudiant> listEtudiant = new ArrayList<Etudiant>(this.etudiants);
-        listEtudiant.sort(new Comparator<Etudiant>() {
+        TreeSet<Etudiant> tmp = new TreeSet<>(new Comparator<Etudiant>() {
             @Override
             public int compare(Etudiant a, Etudiant b) {
                 Identite iA = a.getIdentite();
@@ -153,7 +154,10 @@ public class Groupe {
                 else return iA.getPrenom().compareTo(iB.getPrenom());
             }
         });
-        this.etudiants = new HashSet<>(listEtudiant);
+        for (Etudiant e : this.etudiants) {
+            tmp.add(e);
+        }
+        this.etudiants = tmp;
     }
 
     // GETTERS

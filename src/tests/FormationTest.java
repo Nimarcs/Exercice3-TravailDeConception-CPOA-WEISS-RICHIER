@@ -31,9 +31,9 @@ public class FormationTest {
     @Test
     public void ajouterMatiere_CasOK() throws MatiereExisteDejaException, ValeurImpossibleException, MatiereInexistanteException {
         Set<String> listeMatieres = this.form1.domaineMatieres();
-        assertEquals( "Test OK1: form1 ne doit avoir aucune matiere", listeMatieres.size(), 0);
+        assertEquals( "Test OK1: form1 ne doit avoir aucune matiere", listeMatieres.isEmpty(), true);
         this.form1.ajouterMatiere("CPOA", 5.0);
-        assertEquals("Test 0K2: form1 doit avoir une matiere", listeMatieres.size(), 1);
+        assertEquals("Test 0K2: form1 doit avoir une matiere", listeMatieres.isEmpty(), false);
         listeMatieres = this.form1.domaineMatieres();
         Iterator<String> it = listeMatieres.iterator();
         String matiere = it.next();

@@ -1,13 +1,12 @@
 package tests;
 
 import code.*;
-import exceptions.AjoutSuppressionEtudiantImpossibleException;
-import exceptions.MatiereExisteDejaException;
-import exceptions.ValeurImpossibleException;
+import exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Iterator;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -31,7 +30,7 @@ public class GroupeTestLucas {
         try {
             this.i1 = new Etudiant(new Identite("FR0001", "Weiss", "Lucas"), f);
             this.i2 = new Etudiant(new Identite("FR0002", "Richier", "Marcus"), f);
-            this.i3 = new Etudiant(new Identite("1000", "Marc", "Antoine"), f);
+            this.i3 = new Etudiant(new Identite("FR1000", "Marc", "Antoine"), f);
             this.gr.ajouterEtudiant(i1);
             this.gr.ajouterEtudiant(i2);
             this.gr.ajouterEtudiant(i3);
@@ -76,18 +75,61 @@ public class GroupeTestLucas {
     }
 
     @Test
-    public void calculerMoyenneGroupe() {
+    public void calculerMoyenneGroupe_OK() throws MatiereInexistanteException, ValeurImpossibleException, ListeNotesVideException {
+        Random r = new Random();
+        for (String s : gr.getFormation().domaineMatieres()) {
+            double moyenne = 0;
+            for (int i=0; i<5; i++) {
+                double res = r.nextDouble()*20;
+                i1.ajouterNote(s, r.nextDouble()*20);
+                i2.ajouterNote(s, r.nextDouble()*20);
+                i3.ajouterNote(s, r.nextDouble()*20);
+            }
+            moyenne=i1.calculerMoyenne(s)+i2.calculerMoyenne(s)+i3.calculerMoyenne(s);
+            moyenne=moyenne/3;
+            assertEquals (moyenne, gr.calculerMoyenneGroupe(s), 0.01);
+        }
     }
 
     @Test
-    public void calculerMoyenneGenerale() {
+    public void calculerMoyenneGroupe_ExceptionMatiereInexistante(){
+
+    }
+
+    @Test
+    public void calculerMoyenneGroupe_ExceptionListeNoteVideException() {
+
+    }
+
+    @Test
+    public void calculerMoyenneGenerale_OK() {
+    }
+
+    @Test
+    public void calculerMoyenneGenerale_ExceptionListeNotesVide() {
+
     }
 
     @Test
     public void triParMerite() {
+
     }
 
     @Test
     public void triAlpha() {
+        Etudiant[] e = {i1, i2, i3};
+        int i=0;
+        for (Etudiant val : gr.getEtudiants()) {
+            assertEquals(val, e[i]);
+            i++;
+        }
+        gr.triAlpha();
+        Etudiant[] ee = {i3, i2, i1};
+        i=0;
+        for (Etudiant val : gr.getEtudiants()) {
+            //assertEquals(val, ee[i]);
+            System.out.println(val.getIdentite().getNom());
+            i++;
+        }
     }
 }
