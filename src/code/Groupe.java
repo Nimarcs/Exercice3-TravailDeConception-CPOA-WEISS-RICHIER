@@ -123,6 +123,7 @@ public class Groupe {
      * Methode triParMerite, qui tri les etudiants selon leur moyenne generale decroissant
      */
     public void triParMerite() {
+        //on cree un Set temporaire qui aura le bon tri
         TreeSet<Etudiant> tmp = new TreeSet<>(new Comparator<Etudiant>() {
             @Override
             public int compare(Etudiant a, Etudiant b) {
@@ -136,10 +137,13 @@ public class Groupe {
                 return Double.compare(moyA, moyB);
             }
         });
+
+        //on ajoute tout les elements de l'ancien set
         for (Etudiant e : this.etudiants) {
             tmp.add(e);
-            System.out.println(e.getIdentite().getNom());
         }
+
+        //on remplace l'ancien set par le nouveau
         this.etudiants = tmp;
     }
 
@@ -147,6 +151,7 @@ public class Groupe {
      * Methode triParAlphabetique qui trie les eleves par leur ordre alphabétique
      */
     public void triAlpha() {
+        //on cree un Set temporaire qui aura le bon tri
         TreeSet<Etudiant> tmp = new TreeSet<>(new Comparator<Etudiant>() {
             @Override
             public int compare(Etudiant a, Etudiant b) {
@@ -157,9 +162,13 @@ public class Groupe {
                 else return iA.getPrenom().compareTo(iB.getPrenom());
             }
         });
+
+        //on ajoute tout les elements de l'ancien set
         for (Etudiant e : this.etudiants) {
             tmp.add(e);
         }
+
+        //on remplace l'ancien set par le nouveau
         this.etudiants = tmp;
     }
 
