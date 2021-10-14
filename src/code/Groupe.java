@@ -89,7 +89,7 @@ public class Groupe {
      */
     public double calculerMoyenneGenerale() throws ListeNotesVideException {
         //on initialise les valeurs pour calculer la moyenne
-        int somme = 0, nb = 0;
+        double somme = 0, nb = 0;
 
         //on parcourt les matieres avec un iterateur simplifie
         for (String matiere : formation.domaineMatieres()) {
@@ -116,7 +116,7 @@ public class Groupe {
         }
 
         //sinon on renvoie la matiere
-        return (double)somme/nb;
+        return somme/nb;
     }
 
     /**
