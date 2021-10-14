@@ -360,6 +360,10 @@ public class TestsGroupeMarcus {
         assertEquals(exp, res, 0.01);
     }
 
+    /**
+     * test du tri par merite dans un cas normal
+     * @throws AjoutSuppressionEtudiantImpossibleException exception non attendue
+     */
     @Test
     public void triParMerite_casNormal() throws AjoutSuppressionEtudiantImpossibleException {
         //preparation
@@ -377,6 +381,12 @@ public class TestsGroupeMarcus {
         assertEquals(exp, res);
     }
 
+    /**
+     * test du tri par merite cas avec doublons de valeurs
+     * @throws AjoutSuppressionEtudiantImpossibleException exception non attendue
+     * @throws MatiereInexistanteException exception non attendue
+     * @throws ValeurImpossibleException exception non attendue
+     */
     @Test
     public void triParMerite_casDoublons() throws AjoutSuppressionEtudiantImpossibleException, MatiereInexistanteException, ValeurImpossibleException {
         //preparation
@@ -395,6 +405,10 @@ public class TestsGroupeMarcus {
         assertEquals(exp, res);
     }
 
+    /**
+     * test du tri par merite cas avec une seule valeur
+     * @throws AjoutSuppressionEtudiantImpossibleException exception non attendue
+     */
     @Test
     public void triParMerite_casUnElement() throws AjoutSuppressionEtudiantImpossibleException {
         //preparation
@@ -410,6 +424,10 @@ public class TestsGroupeMarcus {
         assertEquals(exp, res);
     }
 
+    /**
+     * test du tri par nom et prenom cas normal
+     * @throws AjoutSuppressionEtudiantImpossibleException exception non attendue
+     */
     @Test
     public void triAlpha_casNormal() throws AjoutSuppressionEtudiantImpossibleException {
         //preparation
@@ -427,6 +445,10 @@ public class TestsGroupeMarcus {
         assertEquals(exp, res);
     }
 
+    /**
+     * test du tri par nom et prenom cas avec des duplicats de valeurs
+     * @throws AjoutSuppressionEtudiantImpossibleException exception non attendue
+     */
     @Test
     public void triAlpha_casDuplicats() throws AjoutSuppressionEtudiantImpossibleException {
         //preparation
@@ -447,6 +469,10 @@ public class TestsGroupeMarcus {
         assertEquals(exp, res);
     }
 
+    /**
+     * test du tri par nom et prenom cas avec un seul element a trier
+     * @throws AjoutSuppressionEtudiantImpossibleException
+     */
     @Test
     public void triAlpha_casUnElement() throws AjoutSuppressionEtudiantImpossibleException {
         //preparation
