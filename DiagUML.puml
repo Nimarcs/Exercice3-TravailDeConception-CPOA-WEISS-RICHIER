@@ -58,7 +58,7 @@ package code {
         + changerCoefficient(matiere:String, coeff:Double) : void
         + domaineMatieres() : Set<String>
         + getCoefficient(matiere:String) : Double
-        + getIDFormation() : String
+        + getIdFormation() : String
     }
     Groupe "*" --> "*" Etudiant : - etudiants
     Groupe "*" --> "1" Formation : - formation

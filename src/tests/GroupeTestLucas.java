@@ -6,7 +6,6 @@ import  code.*;
 import exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.Iterator;
 import java.util.Random;
 import static org.junit.Assert.*;
 
