@@ -20,7 +20,12 @@ public class Groupe {
     // CONSTRUCTEUR
     public Groupe(Formation form) {
         this.formation = form;
-        this.etudiants = new HashSet<Etudiant>();
+        this.etudiants = new TreeSet<Etudiant>(new Comparator<Etudiant>() {
+            @Override
+            public int compare(Etudiant o1, Etudiant o2) {
+                return 0;
+            }
+        });
     }
 
     // METHODES
@@ -123,24 +128,24 @@ public class Groupe {
      * Methode triParMerite, qui tri les etudiants selon leur moyenne generale decroissant
      */
     public void triParMerite() {
-        List<Etudiant> list = new ArrayList<Etudiant>(this.getEtudiants());
-        Collections.sort(list, new Comparator<Etudiant>() { //permet de trier la liste par ordre décroissant des scores
-            public int compare(Etudiant a, Etudiant b) { //indique à la fonction comment trier deux types joueurs par ordre décroissant de score
-                double moyA=0, moyB=0;
+        TreeSet<Etudiant> tmp = new TreeSet<>(new Comparator<Etudiant>() {
+            @Override
+            public int compare(Etudiant a, Etudiant b) {
+                double moyA = 0, moyB = 0;
                 try {
                     moyA = a.calculerMoyenneGenerale();
                     moyB = b.calculerMoyenneGenerale();
-                } catch (Exception e) {
-
+                } catch (ListeNotesVideException e) {
+                    e.printStackTrace();
                 }
-                if (moyA > moyB)
-                    return 1;
-                if (moyA < moyB)
-                    return -1;
-                return 0;
+                return Double.compare(moyA, moyB);
             }
         });
-        this.etudiants = new HashSet<>(list);
+        for (Etudiant e : this.etudiants) {
+            tmp.add(e);
+            System.out.println(e.getIdentite().getNom());
+        }
+        this.etudiants = tmp;
     }
 
     /**

@@ -5,7 +5,8 @@ import exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -113,28 +114,35 @@ public class GroupeTestLucas {
     public void triParMerite() throws MatiereInexistanteException, ValeurImpossibleException, ListeNotesVideException {
         for (String s : gr.getFormation().domaineMatieres()) {
             for (int i=0; i<5; i++) {
-                i2.ajouterNote(s,10.0); //richier
-                i1.ajouterNote(s,12.0); //weiss
-                i3.ajouterNote(s,14.0); //marc
+                i2.ajouterNote(s,10.0);
+                i1.ajouterNote(s,12.0);
+                i3.ajouterNote(s,14.0);
             }
         }
         gr.triParMerite();
-        Iterator<Etudiant> i = gr.getEtudiants().iterator();
-        assertEquals(i3, (Etudiant)i.next());
-        assertEquals(i1, (Etudiant)i.next());
-        assertEquals(i2, (Etudiant)i.next());
+        System.out.println(i1.calculerMoyenneGenerale()+" "+i2.calculerMoyenneGenerale()+" "+i3.calculerMoyenneGenerale());
+        Iterator i = gr.getEtudiants().iterator();
+        assertEquals(i3, i.next());
+        assertEquals(i1, i.next());
+        assertEquals(i2, i.next());
+
     }
 
     @Test
     public void triAlpha() {
+        Etudiant[] e = {i1, i2, i3};
         int i=0;
+        for (Etudiant val : gr.getEtudiants()) {
+            //assertEquals(val, e[i]);
+            i++;
+        }
         gr.triAlpha();
         Etudiant[] ee = {i3, i2, i1};
         i=0;
         for (Etudiant val : gr.getEtudiants()) {
             assertEquals(val, ee[i]);
+            System.out.println(val.getIdentite().getNom());
             i++;
         }
     }
-
 }
