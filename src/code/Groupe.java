@@ -20,12 +20,7 @@ public class Groupe {
     // CONSTRUCTEUR
     public Groupe(Formation form) {
         this.formation = form;
-        this.etudiants = new TreeSet<Etudiant>(new Comparator<Etudiant>() {
-            @Override
-            public int compare(Etudiant o1, Etudiant o2) {
-                return 0;
-            }
-        });
+        this.etudiants = new TreeSet<Etudiant>();
     }
 
     // METHODES

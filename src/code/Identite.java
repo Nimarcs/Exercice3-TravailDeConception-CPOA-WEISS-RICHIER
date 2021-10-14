@@ -41,4 +41,13 @@ public class Identite {
     public String getNom() {
         return nom;
     }
+
+    @Override
+    public String toString() {
+        return "Identite{" +
+                "nip='" + nip + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                '}';
+    }
 }
