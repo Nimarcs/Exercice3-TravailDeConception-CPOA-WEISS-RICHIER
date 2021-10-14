@@ -396,6 +396,21 @@ public class TestsGroupeMarcus {
     }
 
     @Test
+    public void triParMerite_casUnElement() throws AjoutSuppressionEtudiantImpossibleException {
+        //preparation
+        gr1.ajouterEtudiant(etu3);
+        String exp = "Identite{nip='CM1', nom='Crimson', prenom='Megumin'}";
+        String res = "";
+        //methode a tester
+        gr1.triParMerite();
+        //assertion
+        for (Etudiant e : gr1.getEtudiants()) {
+            res += e.toString();
+        }
+        assertEquals(exp, res);
+    }
+
+    @Test
     public void triAlpha_casNormal() throws AjoutSuppressionEtudiantImpossibleException {
         //preparation
         gr1.ajouterEtudiant(etu3);
@@ -427,6 +442,21 @@ public class TestsGroupeMarcus {
         gr1.triAlpha();
         //assertion
         for (Etudiant e : gr1.getEtudiants()){
+            res += e.toString();
+        }
+        assertEquals(exp, res);
+    }
+
+    @Test
+    public void triAlpha_casUnElement() throws AjoutSuppressionEtudiantImpossibleException {
+        //preparation
+        gr1.ajouterEtudiant(etu3);
+        String exp = "Identite{nip='CM1', nom='Crimson', prenom='Megumin'}";
+        String res = "";
+        //methode a tester
+        gr1.triAlpha();
+        //assertion
+        for (Etudiant e : gr1.getEtudiants()) {
             res += e.toString();
         }
         assertEquals(exp, res);
