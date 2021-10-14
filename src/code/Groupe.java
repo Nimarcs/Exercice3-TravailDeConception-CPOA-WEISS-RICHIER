@@ -134,7 +134,8 @@ public class Groupe {
                 } catch (ListeNotesVideException e) {
                     e.printStackTrace();
                 }
-                return Double.compare(moyA, moyB);
+                // on mets moyB avant moyA afin de s'assurer que le tri se fera de façon décroissant
+                return Double.compare(moyB, moyA);
             }
         });
 
