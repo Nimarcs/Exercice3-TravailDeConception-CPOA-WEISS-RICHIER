@@ -19,13 +19,13 @@ import java.util.Set;
 public class TestsGroupeMarcus {
 
     private Groupe gr1;
-    private Etudiant etu1, etu2;
+    private Etudiant etu1, etu2, etu3, etu4, etu5;
 
     /**
      * preparation pour les tests
      */
     @Before
-    public void setUp() throws MatiereExisteDejaException, ValeurImpossibleException {
+    public void setUp() throws MatiereExisteDejaException, ValeurImpossibleException, MatiereInexistanteException {
         Formation formationPatate = new Formation("PATATE");
         formationPatate.ajouterMatiere("cueille", 1.0);
         formationPatate.ajouterMatiere("epluchage", 5.0);
@@ -33,6 +33,12 @@ public class TestsGroupeMarcus {
         gr1 = new Groupe(formationPatate);
         etu1 = new Etudiant(new Identite("SK1", "Satou", "Kazuma"), formationPatate);
         etu2 = new Etudiant(new Identite("GA1", "God", "Aqua"), formationPatate);
+        etu3 = new Etudiant(new Identite("CM1", "Crimson", "Megumin"), formationPatate);
+        etu3.ajouterNote("cueille", 3.);//2
+        etu4 = new Etudiant(new Identite("LD1", "Lalatina", "Darkness"), formationPatate);
+        etu4.ajouterNote("cueille", 4.);//3
+        etu5 = new Etudiant(new Identite("CC1", "Crimson", "Chunchunmaru"), formationPatate);
+        etu5.ajouterNote("cueille", 5.);//1
     }
 
     /**
@@ -352,6 +358,40 @@ public class TestsGroupeMarcus {
 
         //assertion
         assertEquals(exp, res, 0.01);
+    }
+
+    @Test
+    public void triParMerite_casNormal() throws AjoutSuppressionEtudiantImpossibleException {
+        //preparation
+        gr1.ajouterEtudiant(etu3);
+        gr1.ajouterEtudiant(etu4);
+        gr1.ajouterEtudiant(etu5);
+        String exp = "Identite{nip='CM1', nom='Crimson', prenom='Megumin'}Identite{nip='LD1', nom='Lalatina', prenom='Darkness'}Identite{nip='CC1', nom='Crimson', prenom='Chunchunmaru'}";
+        String res = "";
+        //methode a tester
+        gr1.triParMerite();
+        //assertion
+        for (Etudiant e : gr1.getEtudiants()){
+            res += e.toString();
+        }
+        assertEquals(exp, res);
+    }
+
+    @Test
+    public void triAlpha_casNormal() throws AjoutSuppressionEtudiantImpossibleException {
+        //preparation
+        gr1.ajouterEtudiant(etu3);
+        gr1.ajouterEtudiant(etu4);
+        gr1.ajouterEtudiant(etu5);
+        String exp = "Identite{nip='CC1', nom='Crimson', prenom='Chunchunmaru'}Identite{nip='CM1', nom='Crimson', prenom='Megumin'}Identite{nip='LD1', nom='Lalatina', prenom='Darkness'}";
+        String res = "";
+        //methode a tester
+        gr1.triAlpha();
+        //assertion
+        for (Etudiant e : gr1.getEtudiants()){
+            res += e.toString();
+        }
+        assertEquals(exp, res);
     }
 
 
