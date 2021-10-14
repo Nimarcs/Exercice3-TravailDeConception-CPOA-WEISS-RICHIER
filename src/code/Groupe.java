@@ -135,7 +135,9 @@ public class Groupe {
                     e.printStackTrace();
                 }
                 // on mets moyB avant moyA afin de s'assurer que le tri se fera de façon décroissant
-                return Double.compare(moyB, moyA);
+                int i = Double.compare(moyB, moyA);
+                if (i == 0) return a.getIdentite().getNip().compareTo(b.getIdentite().getNip()); //on les trie dans l'ordre des NIP après
+                return i;
             }
         });
 
@@ -160,7 +162,9 @@ public class Groupe {
                 Identite iB = b.getIdentite();
                 int i = iA.getNom().compareTo(iB.getNom());
                 if (i!=0) {return i;}
-                else return iA.getPrenom().compareTo(iB.getPrenom());
+                i = iA.getPrenom().compareTo(iB.getPrenom());
+                if (i!=0) return i;
+                return iA.getNip().compareTo(iB.getNip());
             }
         });
 
