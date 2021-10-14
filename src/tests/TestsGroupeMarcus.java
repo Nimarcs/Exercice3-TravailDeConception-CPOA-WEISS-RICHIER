@@ -366,8 +366,26 @@ public class TestsGroupeMarcus {
         gr1.ajouterEtudiant(etu3);
         gr1.ajouterEtudiant(etu4);
         gr1.ajouterEtudiant(etu5);
-        String exp = "Identite{nip='CM1', nom='Crimson', prenom='Megumin'}Identite{nip='LD1', nom='Lalatina', prenom='Darkness'}Identite{nip='CC1', nom='Crimson', prenom='Chunchunmaru'}";
+        String exp = "Identite{nip='CC1', nom='Crimson', prenom='Chunchunmaru'}Identite{nip='LD1', nom='Lalatina', prenom='Darkness'}Identite{nip='CM1', nom='Crimson', prenom='Megumin'}";
         String res = "";
+        //methode a tester
+        gr1.triParMerite();
+        //assertion
+        for (Etudiant e : gr1.getEtudiants()){
+            res += e.toString();
+        }
+        assertEquals(exp, res);
+    }
+
+    @Test
+    public void triParMerite_casDoublons() throws AjoutSuppressionEtudiantImpossibleException, MatiereInexistanteException, ValeurImpossibleException {
+        //preparation
+        etu1.ajouterNote("cueille", 3.);
+        gr1.ajouterEtudiant(etu3);
+        gr1.ajouterEtudiant(etu4);
+        gr1.ajouterEtudiant(etu5);
+        gr1.ajouterEtudiant(etu1);
+        String exp = "Identite{nip='CC1', nom='Crimson', prenom='Chunchunmaru'}Identite{nip='LD1', nom='Lalatina', prenom='Darkness'}Identite{nip='CM1', nom='Crimson', prenom='Megumin'}Identite{nip='SK1', nom='Satou', prenom='Kazuma'}";        String res = "";
         //methode a tester
         gr1.triParMerite();
         //assertion
@@ -394,7 +412,25 @@ public class TestsGroupeMarcus {
         assertEquals(exp, res);
     }
 
-
+    @Test
+    public void triAlpha_casDuplicats() throws AjoutSuppressionEtudiantImpossibleException {
+        //preparation
+        Etudiant etu1Bis = new Etudiant(new Identite("SK2", "Satou", "Kazuma"), etu2.getFormation());
+        gr1.ajouterEtudiant(etu1);
+        gr1.ajouterEtudiant(etu1Bis);
+        gr1.ajouterEtudiant(etu3);
+        gr1.ajouterEtudiant(etu4);
+        gr1.ajouterEtudiant(etu5);
+        String exp = "Identite{nip='CC1', nom='Crimson', prenom='Chunchunmaru'}Identite{nip='CM1', nom='Crimson', prenom='Megumin'}Identite{nip='LD1', nom='Lalatina', prenom='Darkness'}Identite{nip='SK1', nom='Satou', prenom='Kazuma'}Identite{nip='SK2', nom='Satou', prenom='Kazuma'}";
+        String res = "";
+        //methode a tester
+        gr1.triAlpha();
+        //assertion
+        for (Etudiant e : gr1.getEtudiants()){
+            res += e.toString();
+        }
+        assertEquals(exp, res);
+    }
 
 
 
