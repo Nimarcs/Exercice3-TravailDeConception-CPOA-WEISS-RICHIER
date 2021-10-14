@@ -22,7 +22,7 @@ public class TestsGroupeMarcus {
     private Etudiant etu1, etu2;
 
     /**
-     *
+     * preparation pour les tests
      */
     @Before
     public void setUp() throws MatiereExisteDejaException, ValeurImpossibleException {
@@ -200,8 +200,8 @@ public class TestsGroupeMarcus {
         double resCuisson = gr1.calculerMoyenneGroupe("cuisson");
 
         //assertion
-        assertEquals("l'etudiant doit avoir la bonne moyenne", expCueille, resCueille, 0.01);
-        assertEquals("l'etudiant doit avoir la bonne moyenne", expCuisson, resCuisson, 0.01);
+        assertEquals("le groupe doit avoir la bonne moyenne", expCueille, resCueille, 0.01);
+        assertEquals("le groupe doit avoir la bonne moyenne", expCuisson, resCuisson, 0.01);
     }
 
     /**
@@ -273,6 +273,88 @@ public class TestsGroupeMarcus {
         assertEquals(expCuisson, resCuisson, 0.01);
         assertEquals(expEpluchage, resEpluchage, 0.01);
     }
+
+    /**
+     * test pour verifier que l'on calcule convenablement la moyenne generale du groupe
+     * est censee fonctionner sans erreur renvoye
+     * @throws MatiereInexistanteException exception non attendue
+     * @throws ListeNotesVideException exception non attendue
+     * @throws ValeurImpossibleException exception non attendue
+     */
+    @Test
+    public void calculerMoyenneGenerale_casNormal() throws MatiereInexistanteException, ListeNotesVideException, ValeurImpossibleException, AjoutSuppressionEtudiantImpossibleException {
+        //preparation
+        //note de l'etudiant 1
+        etu1.ajouterNote("cueille", 5.0);
+        etu1.ajouterNote("cueille", 15.0);
+        etu1.ajouterNote("epluchage", 6.0);
+        etu1.ajouterNote("cuisson", 10.0);
+        etu1.ajouterNote("cuisson", 20.0);
+        //note de l'etudiant 2 (plus simple, l'etudiant suffit a prouver que les bonnes methodes de calcul de moyenne ont ete appelle
+        etu2.ajouterNote("cueille", 15.);
+        etu1.ajouterNote("epluchage", 10.0);
+        etu2.ajouterNote("cuisson", 5.);
+        double exp = 9.06;
+
+        //on ajoute les etudiants
+        gr1.ajouterEtudiant(etu1);
+        gr1.ajouterEtudiant(etu2);
+
+        //methode a tester
+        double res = gr1.calculerMoyenneGenerale();
+
+        //assertion
+        assertEquals("le groupe doit avoir la bonne moyenne", exp, res, 0.01);
+    }
+
+
+    /**
+     * test pour verifier que la methode renvoie une erreur si on tente de calculer la moyenne du groupe sur une matiere sans note
+     * n'est pas censee fonctionner sans erreur renvoye
+     * @throws ListeNotesVideException exception attendue
+     * @throws AjoutSuppressionEtudiantImpossibleException exception non attendue
+     */
+    @Test (expected = ListeNotesVideException.class)
+    public void calculerMoyenneGenerale_casPasDeNote() throws ListeNotesVideException, AjoutSuppressionEtudiantImpossibleException {
+        //preparation
+        gr1.ajouterEtudiant(etu1);
+        gr1.ajouterEtudiant(etu2);
+
+        //methode a tester
+        gr1.calculerMoyenneGenerale();
+        //assertion
+    }
+
+    /**
+     * test pour verifier que la methode renvoie le bon resultat quand tout les eleves n'ont pas ete note dans toutes les matieres
+     * est censee fonctionner sans erreur renvoye
+     * @throws MatiereInexistanteException exception non attendue
+     * @throws ListeNotesVideException exception non attendue
+     * @throws ValeurImpossibleException exception non attendue
+     */
+    @Test
+    public void calculerMoyenneGenerale_casPasTousNote() throws MatiereInexistanteException, ListeNotesVideException, ValeurImpossibleException, AjoutSuppressionEtudiantImpossibleException {
+        //preparation
+        //note de l'etudiant 1
+        etu1.ajouterNote("cueille", 10.0);
+        etu1.ajouterNote("cueille", 20.0);
+        etu1.ajouterNote("epluchage", 4.5);
+        etu2.ajouterNote("epluchage", 5.5);
+        etu2.ajouterNote("cuisson", 10.);
+        double exp= 7.5;
+
+        //on ajoute les etudiants
+        gr1.ajouterEtudiant(etu1);
+        gr1.ajouterEtudiant(etu2);
+
+        //methode a tester
+        double res = gr1.calculerMoyenneGenerale();
+
+        //assertion
+        assertEquals(exp, res, 0.01);
+    }
+
+
 
 
 
