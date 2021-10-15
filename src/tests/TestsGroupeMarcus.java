@@ -193,21 +193,18 @@ public class TestsGroupeMarcus {
         //note de l'etudiant 2 (plus simple, l'etudiant suffit a prouver que les bonnes methodes de calcul de moyenne ont ete appelle
         etu2.ajouterNote("cueille", 15.);
         etu2.ajouterNote("cuisson", 5.);
-        double expCueille = 12.5;
-        double expCuisson = 10.;
 
         //on ajoute les etudiants
         gr1.ajouterEtudiant(etu1);
         gr1.ajouterEtudiant(etu2);
-
 
         //methode a tester
         double resCueille = gr1.calculerMoyenneGroupe("cueille");
         double resCuisson = gr1.calculerMoyenneGroupe("cuisson");
 
         //assertion
-        assertEquals("le groupe doit avoir la bonne moyenne", expCueille, resCueille, 0.01);
-        assertEquals("le groupe doit avoir la bonne moyenne", expCuisson, resCuisson, 0.01);
+        assertEquals("le groupe doit avoir la bonne moyenne", 12.5, resCueille, 0.01);
+        assertEquals("le groupe doit avoir la bonne moyenne", 10.0, resCuisson, 0.01);
     }
 
     /**
@@ -261,9 +258,6 @@ public class TestsGroupeMarcus {
         etu1.ajouterNote("cueille", 20.0);
         etu1.ajouterNote("epluchage", 0.0);
         etu2.ajouterNote("cuisson", 10.);
-        double expCueille = 15.;
-        double expCuisson = 10.;
-        double expEpluchage = 0.;
 
         //on ajoute les etudiants
         gr1.ajouterEtudiant(etu1);
@@ -275,9 +269,9 @@ public class TestsGroupeMarcus {
         double resEpluchage = gr1.calculerMoyenneGroupe("epluchage");
 
         //assertion
-        assertEquals(expCueille, resCueille, 0.01);
-        assertEquals(expCuisson, resCuisson, 0.01);
-        assertEquals(expEpluchage, resEpluchage, 0.01);
+        assertEquals(15.0, resCueille, 0.01);
+        assertEquals(10.0, resCuisson, 0.01);
+        assertEquals(0.0, resEpluchage, 0.01);
     }
 
     /**
@@ -300,7 +294,6 @@ public class TestsGroupeMarcus {
         etu2.ajouterNote("cueille", 15.);
         etu1.ajouterNote("epluchage", 10.0);
         etu2.ajouterNote("cuisson", 5.);
-        double exp = 9.06;
 
         //on ajoute les etudiants
         gr1.ajouterEtudiant(etu1);
@@ -310,7 +303,7 @@ public class TestsGroupeMarcus {
         double res = gr1.calculerMoyenneGenerale();
 
         //assertion
-        assertEquals("le groupe doit avoir la bonne moyenne", exp, res, 0.01);
+        assertEquals("le groupe doit avoir la bonne moyenne", 9.06, res, 0.01);
     }
 
 
@@ -347,7 +340,6 @@ public class TestsGroupeMarcus {
         etu1.ajouterNote("epluchage", 4.5);
         etu2.ajouterNote("epluchage", 5.5);
         etu2.ajouterNote("cuisson", 10.);
-        double exp= 7.5;
 
         //on ajoute les etudiants
         gr1.ajouterEtudiant(etu1);
@@ -357,7 +349,7 @@ public class TestsGroupeMarcus {
         double res = gr1.calculerMoyenneGenerale();
 
         //assertion
-        assertEquals(exp, res, 0.01);
+        assertEquals(7.5, res, 0.01);
     }
 
     /**
