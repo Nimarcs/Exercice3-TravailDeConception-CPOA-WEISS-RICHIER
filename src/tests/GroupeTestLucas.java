@@ -147,7 +147,7 @@ public class GroupeTestLucas {
      */
     @Test (expected = MatiereInexistanteException.class)
     public void calculerMoyenneGroupe_ExceptionMatiereInexistante() throws MatiereInexistanteException, ListeNotesVideException {
-        double res = this.i1.calculerMoyenne("Français");
+        this.i1.calculerMoyenne("Français");
     }
 
     /**
@@ -157,7 +157,7 @@ public class GroupeTestLucas {
      */
     @Test (expected = ListeNotesVideException.class)
     public void calculerMoyenneGroupe_ExceptionListeNoteVideException() throws MatiereInexistanteException, ListeNotesVideException {
-        double res = this.i1.calculerMoyenne("CPOA");
+        this.i1.calculerMoyenne("CPOA");
     }
 
     /**
@@ -174,9 +174,7 @@ public class GroupeTestLucas {
             i1.ajouterNote("ExprComm", 17.5);
             i2.ajouterNote("ExprComm", 14.5);
             i1.ajouterNote("SystemeReseau", 8.4);
-        } catch (MatiereInexistanteException e) {
-            e.printStackTrace();
-        } catch (ValeurImpossibleException e) {
+        } catch (MatiereInexistanteException | ValeurImpossibleException e) {
             e.printStackTrace();
         }
         assertEquals("test1: la moyenne du groupe en CPOA doit etre de 14.0", 14.0, gr.calculerMoyenneGroupe("CPOA"), 0.1);
@@ -200,9 +198,7 @@ public class GroupeTestLucas {
             i1.ajouterNote("ExprComm", 17.5);
             i1.ajouterNote("ExprComm", 14.5);
             i1.ajouterNote("SystemeReseau", 15.0);
-        } catch (MatiereInexistanteException e) {
-            e.printStackTrace();
-        } catch (ValeurImpossibleException e) {
+        } catch (MatiereInexistanteException | ValeurImpossibleException e) {
             e.printStackTrace();
         }
         double res = i1.calculerMoyenneGenerale();
@@ -229,9 +225,7 @@ public class GroupeTestLucas {
                     i2.ajouterNote(s,10.0);
                     i1.ajouterNote(s,12.0);
                     i3.ajouterNote(s,14.0);
-                } catch (MatiereInexistanteException e) {
-                    e.printStackTrace();
-                } catch (ValeurImpossibleException e) {
+                } catch (MatiereInexistanteException | ValeurImpossibleException e) {
                     e.printStackTrace();
                 }
             }
@@ -240,6 +234,40 @@ public class GroupeTestLucas {
         gr.triParMerite();
         int i=0;
         Etudiant[] tabEtudiant = {i3, i1, i2};
+        for (Etudiant val : gr.getEtudiants()) {
+            assertEquals(val, tabEtudiant[i]);
+            i++;
+        }
+
+    }
+
+    /**
+     * Test triParMerite, verifie que les etudiants sont bien triés par leur moyenneGenerale par ordre decroissant
+     */
+    @Test
+    public void triParMerite_CasDoublons () {
+        Etudiant i4 = new Etudiant(new Identite("FR999", "Richier", "Celia"), this.gr.getFormation());
+        for (String s : gr.getFormation().domaineMatieres()) {
+            for (int i=0; i<5; i++) {
+                try {
+                    i2.ajouterNote(s,10.0);
+                    i1.ajouterNote(s,12.0);
+                    i3.ajouterNote(s,14.0);
+                    i4.ajouterNote(s, 14.);
+                } catch (MatiereInexistanteException | ValeurImpossibleException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        try {
+            gr.ajouterEtudiant(i4);
+        } catch (AjoutSuppressionEtudiantImpossibleException e) {
+            e.printStackTrace();
+        }
+        // On lance la méthode de tri
+        gr.triParMerite();
+        int i=0;
+        Etudiant[] tabEtudiant = {i3, i4, i1, i2};
         for (Etudiant val : gr.getEtudiants()) {
             assertEquals(val, tabEtudiant[i]);
             i++;
@@ -269,4 +297,27 @@ public class GroupeTestLucas {
             i++;
         }
     }
+    /**
+     * Test triAlpha, vérifie que les etudiants du groupe sont triés par ordre alphabétique par ordre croissant
+     */
+    @Test
+    public void triAlpha_CasDoublons() {
+
+        Etudiant i4 = new Etudiant(new Identite("FR999", "Richier", "Marcus"), this.gr.getFormation());
+
+        try {
+            this.gr.ajouterEtudiant(i4);
+        } catch (AjoutSuppressionEtudiantImpossibleException e) {
+            e.printStackTrace();
+        }
+        int i=0;
+        // On lance la méthode de tri
+        gr.triAlpha();
+        Etudiant[] tabEtudiant = {i3, i2, i4, i1};
+        for (Etudiant val : gr.getEtudiants()) {
+            assertEquals(val, tabEtudiant[i]);
+            i++;
+        }
+    }
+
 }
